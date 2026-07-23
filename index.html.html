@@ -10,245 +10,38 @@
       src: url("./IRANSans.ttf.ttf") format("truetype");
       font-display: swap;
     }
-
-    :root {
-      --bg: #eef3f8;
-      --navy: #0f2747;
-      --navy-2: #17365f;
-      --navy-3: #234a7a;
-      --text: #17212b;
-      --muted: #617287;
-      --line: #d8e1ec;
-      --radius-xl: 20px;
-    }
-
+    :root { --bg: #eef3f8; --navy: #0f2747; --line: #d8e1ec; --radius-xl: 20px; }
     * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      background: linear-gradient(180deg, #eef3f8 0%, #f5f8fc 100%);
-      color: var(--text);
-      font-family: IRANSans, Tahoma, Arial, sans-serif;
-    }
-
+    html, body { margin: 0; min-height: 100%; background: linear-gradient(180deg, #eef3f8 0%, #f5f8fc 100%); color: #17212b; font-family: IRANSans, Tahoma, Arial, sans-serif; }
     body { padding: 20px; }
-
     .page { width: min(1000px, 100%); margin: 0 auto; }
-
-    .shell {
-      background: #ffffff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      box-shadow: 0 10px 30px rgba(15, 39, 71, 0.05);
-      overflow: hidden;
-    }
-
-    .hero {
-      background: var(--navy);
-      color: #fff;
-      padding: 30px 20px;
-      text-align: center;
-    }
-
+    .shell { background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-xl); box-shadow: 0 10px 30px rgba(15, 39, 71, 0.05); overflow: hidden; }
+    .hero { background: var(--navy); color: #fff; padding: 30px 20px; text-align: center; }
     .hero h1 { margin: 0; font-size: 28px; }
     .hero p { margin: 10px 0 0; opacity: 0.8; font-size: 14px; }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1fr 200px 120px;
-      gap: 15px;
-      padding: 20px;
-      border-bottom: 1px solid #eee;
-      align-items: start;
-    }
-
-    .field, .button {
-      height: 45px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 0 15px;
-      font-family: inherit;
-      outline: none;
-      background-color: #fff;
-    }
-
-    .field {
-      width: 100%;
-    }
-
-    .button {
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-
-    .dropdown {
-      position: relative;
-      width: 100%;
-    }
-
-    .dropdown-input {
-      width: 100%;
-      height: 45px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 0 15px;
-      font-family: inherit;
-      outline: none;
-      background-color: #fff;
-      text-align: center;
-    }
-
-    .dropdown-list {
-      position: absolute;
-      top: calc(100% + 6px);
-      right: 0;
-      left: 0;
-      background: #fff;
-      border: 1px solid #d8e1ec;
-      border-radius: 8px;
-      box-shadow: 0 10px 24px rgba(15, 39, 71, 0.08);
-      max-height: 260px;
-      overflow-y: auto;
-      z-index: 20;
-      display: none;
-    }
-
-    .dropdown.open .dropdown-list {
-      display: block;
-    }
-
-    .dropdown-item {
-      padding: 11px 14px;
-      text-align: center;
-      cursor: pointer;
-      border-bottom: 1px solid #edf1f5;
-      background: #fff;
-      font-size: 14px;
-    }
-
-    .dropdown-item:last-child {
-      border-bottom: none;
-    }
-
-    .dropdown-item:hover,
-    .dropdown-item.active {
-      background: #f4f7fa;
-      color: var(--navy);
-    }
-
-    .dropdown-empty {
-      padding: 11px 14px;
-      text-align: center;
-      color: #7a8796;
-      font-size: 13px;
-    }
-
-    .summary {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      padding: 15px;
-      background: #f9f9f9;
-      flex-wrap: wrap;
-    }
-
-    .summary-chip {
-      background: #fff;
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid #ddd;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
+    .toolbar { display: grid; grid-template-columns: 1fr 200px 120px; gap: 15px; padding: 20px; border-bottom: 1px solid #eee; align-items: start; }
+    .field, .button { height: 45px; border: 1px solid #ccc; border-radius: 8px; padding: 0 15px; font-family: inherit; outline: none; background-color: #fff; }
+    .field { width: 100%; }
+    .button { background: var(--navy); color: #fff; border: none; cursor: pointer; }
+    .dropdown { position: relative; width: 100%; }
+    .dropdown-input { width: 100%; height: 45px; border: 1px solid #ccc; border-radius: 8px; padding: 0 15px; font-family: inherit; outline: none; background-color: #fff; text-align: center; }
+    .dropdown-list { position: absolute; top: calc(100% + 6px); right: 0; left: 0; background: #fff; border: 1px solid #d8e1ec; border-radius: 8px; box-shadow: 0 10px 24px rgba(15, 39, 71, 0.08); max-height: 260px; overflow-y: auto; z-index: 20; display: none; }
+    .dropdown.open .dropdown-list { display: block; }
+    .dropdown-item { padding: 11px 14px; text-align: center; cursor: pointer; border-bottom: 1px solid #edf1f5; font-size: 14px; }
+    .dropdown-item:hover { background: #f4f7fa; color: var(--navy); }
+    .summary { display: flex; justify-content: center; gap: 15px; padding: 15px; background: #f9f9f9; flex-wrap: wrap; }
+    .summary-chip { background: #fff; padding: 8px 16px; border-radius: 999px; border: 1px solid #ddd; font-size: 13px; font-weight: 600; }
     .sections { padding: 20px; display: grid; gap: 20px; }
-
-    .dept-card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .dept-header {
-      background: var(--navy);
-      color: #fff;
-      padding: 12px 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .dept-card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .dept-header { background: var(--navy); color: #fff; padding: 12px 20px; display: flex; justify-content: center; align-items: center; gap: 10px; }
     .dept-title { margin: 0; font-size: 16px; }
-
-    .dept-count-badge {
-      background: rgba(255,255,255,0.2);
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-    }
-
-    .name-col { width: 54%; }
-    .ext-col { width: 16%; }
-    .direct-col { width: 30%; }
-
-    thead th {
-      background: #f4f7fa;
-      color: var(--navy);
-      padding: 12px;
-      font-size: 13px;
-      border-bottom: 2px solid #e0e6ed;
-      text-align: center;
-    }
-
-    tbody td {
-      padding: 12px;
-      border-bottom: 1px solid #eee;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: center;
-    }
-
-    thead th:first-child,
-    tbody td:first-child {
-      text-align: center;
-    }
-
-    thead th:nth-child(2),
-    tbody td:nth-child(2) {
-      text-align: center;
-    }
-
-    thead th:last-child,
-    tbody td:last-child {
-      text-align: center;
-      direction: ltr;
-    }
-
-    .name-cell { font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    thead th { background: #f4f7fa; color: var(--navy); padding: 12px; font-size: 13px; border-bottom: 2px solid #e0e6ed; text-align: center; }
+    tbody td { padding: 12px; border-bottom: 1px solid #eee; font-size: 14px; text-align: center; }
+    .tel-link { color: inherit; text-decoration: none; display: block; }
     .phone { direction: ltr; }
-
-    .empty-state {
-      text-align: center;
-      padding: 40px;
-      display: none;
-      color: #888;
-    }
-
-    @media (max-width: 600px) {
-      .toolbar { grid-template-columns: 1fr; }
-    }
+    .empty-state { text-align: center; padding: 40px; display: none; color: #888; }
+    @media (max-width: 600px) { .toolbar { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -258,29 +51,18 @@
         <h1>دفترچه تلفن داخلی</h1>
         <p>جست‌وجوی سریع داخلی و شماره مستقیم واحدها و همکاران</p>
       </header>
-
       <section class="toolbar">
         <input id="searchInput" class="field" type="search" placeholder="جستجو بر اساس نام، داخلی یا شماره..." />
-
         <div id="deptDropdown" class="dropdown">
-          <input
-            id="deptFilter"
-            class="dropdown-input"
-            type="text"
-            placeholder="همه بخش‌ها"
-            autocomplete="off"
-          />
+          <input id="deptFilter" class="dropdown-input" type="text" placeholder="همه بخش‌ها" autocomplete="off" />
           <div id="deptList" class="dropdown-list"></div>
         </div>
-
         <button id="clearBtn" class="button">پاک کردن</button>
       </section>
-
       <section class="summary">
         <div class="summary-chip">تعداد نفرات: <span id="resultCount">0</span> نفر</div>
         <div class="summary-chip">بخش‌ها: <span id="visibleDeptCount">0</span> بخش</div>
       </section>
-
       <section id="sections" class="sections"></section>
       <div id="emptyState" class="empty-state">نتیجه‌ای یافت نشد.</div>
     </section>
@@ -313,7 +95,6 @@
       { "نام": "آقای مصطفی نصیری", "داخلی": "962", "شماره": "09150080209", "بخش": "توزیع" },
       { "نام": "آقای مهدی کاظمی", "داخلی": "967", "شماره": "09152210953", "بخش": "توزیع" },
       { "نام": "آقای فرشید بی نیاز", "داخلی": "970", "شماره": "09371372781", "بخش": "توزیع" },
-      { "نام": "آقای حامد ذوالفقاری", "داخلی": "960", "شماره": "09156299947", "بخش": "توزیع" },
       { "نام": "خانم سمانه طاهری", "داخلی": "507", "شماره": "---", "بخش": "حسابداری" },
       { "نام": "خانم شیما شهلایی", "داخلی": "530", "شماره": "---", "بخش": "حسابداری" },
       { "نام": "خانم فهیمه شاهی", "داخلی": "502", "شماره": "---", "بخش": "حسابداری" },
@@ -322,7 +103,7 @@
       { "نام": "آقای علی یوسف پور", "داخلی": "434", "شماره": "---", "بخش": "فروشگاه" },
       { "نام": "خانم مریم حاجی زاده", "داخلی": "435", "شماره": "---", "بخش": "فروشگاه" },
       { "نام": "خانم یاسمن شکفته", "داخلی": "440", "شماره": "---", "بخش": "فن آوری اطلاعات" },
-      { "نام": "آقای شهریار حسینی", "داخلی": "140", "شماره": "---", "بخش": "فن آوری اطلاعات" },
+      { "نام": "آقای شهریار حسینی", "داخلی": "140", "شماره": "09921044944", "بخش": "فن آوری اطلاعات" },
       { "نام": "آقای سینا ماهی", "داخلی": "142", "شماره": "---", "بخش": "فن آوری اطلاعات" },
       { "نام": "آقای محمدرضا جامی", "داخلی": "903", "شماره": "09156512385", "بخش": "کارشناس فروش" },
       { "نام": "آقای میلاد خوشبخت", "داخلی": "928", "شماره": "09031200766", "بخش": "کارشناس فروش" },
@@ -375,10 +156,8 @@
     ];
 
     const searchInput = document.getElementById("searchInput");
-    const deptDropdown = document.getElementById("deptDropdown");
     const deptFilter = document.getElementById("deptFilter");
     const deptList = document.getElementById("deptList");
-    const clearBtn = document.getElementById("clearBtn");
     const sectionsEl = document.getElementById("sections");
     const resultCountEl = document.getElementById("resultCount");
     const visibleDeptCountEl = document.getElementById("visibleDeptCount");
@@ -386,140 +165,61 @@
 
     const depts = [...new Set(rawData.map(i => i.بخش))].sort();
 
-    function normalize(value) {
-      return value.trim().toLowerCase();
-    }
-
-    function getExactDeptMatch(value) {
-      const query = normalize(value);
-      return depts.find(dept => normalize(dept) === query) || "";
-    }
-
-    function buildDeptList(filterText) {
-      const query = normalize(filterText);
-      const items = ["همه بخش‌ها", ...depts.filter(dept => normalize(dept).includes(query))];
-
-      if (items.length === 0) {
-        deptList.innerHTML = '<div class="dropdown-empty">بخشی یافت نشد</div>';
-        return;
-      }
-
-      deptList.innerHTML = items.map(item => {
-        const value = item === "همه بخش‌ها" ? "" : item;
-        return `<div class="dropdown-item" data-value="${value}">${item}</div>`;
-      }).join("");
-    }
-
-    function openDropdown() {
-      deptDropdown.classList.add("open");
-    }
-
-    function closeDropdown() {
-      deptDropdown.classList.remove("open");
-    }
-
-    function setDeptValue(value) {
-      deptFilter.value = value;
-      render();
-    }
-
     function render() {
       const q = searchInput.value.trim().toLowerCase();
-      const exactDept = getExactDeptMatch(deptFilter.value);
-
-      const filtered = rawData.filter(i =>
-        (exactDept === "" || i.بخش === exactDept) &&
-        (
-          i.نام.toLowerCase().includes(q) ||
-          i.داخلی.includes(q) ||
-          i.شماره.includes(q)
-        )
-      );
-
+      const exactDept = deptFilter.value.trim();
+      const filtered = rawData.filter(i => (exactDept === "" || i.بخش === exactDept) && (i.نام.toLowerCase().includes(q) || i.داخلی.includes(q) || i.شماره.includes(q)));
       resultCountEl.textContent = filtered.length;
       emptyStateEl.style.display = filtered.length ? "none" : "block";
-
+      
       const grouped = depts.reduce((acc, dept) => {
         const items = filtered.filter(i => i.بخش === dept);
         if (items.length) acc[dept] = items;
         return acc;
       }, {});
-
+      
       visibleDeptCountEl.textContent = Object.keys(grouped).length;
-
-      sectionsEl.innerHTML = Object.keys(grouped).map(dept => `
-        <article class="dept-card">
-          <header class="dept-header">
-            <h2 class="dept-title">${dept}</h2>
-            <span class="dept-count-badge">${grouped[dept].length} نفر</span>
-          </header>
-          <table>
-            <colgroup>
-              <col class="name-col">
-              <col class="ext-col">
-              <col class="direct-col">
-            </colgroup>
-            <thead>
-              <tr>
-                <th>نام</th>
-                <th>داخلی</th>
-                <th>شماره مستقیم</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${grouped[dept].map(i => `
-                <tr>
-                  <td class="name-cell">${i.نام}</td>
-                  <td>${i.داخلی}</td>
-                  <td class="phone">${i.شماره}</td>
-                </tr>
-              `).join("")}
-            </tbody>
-          </table>
-        </article>
-      `).join("");
+      sectionsEl.innerHTML = "";
+      
+      Object.keys(grouped).forEach(dept => {
+        const card = document.createElement("article");
+        card.className = "dept-card";
+        let rowsHtml = "";
+        grouped[dept].forEach(i => {
+           // لینک برای شماره اصلی شرکت + داخلی
+           const extLink = i.داخلی !== '---' 
+             ? '<a href="tel:+985191003113,' + i.داخلی + '" class="tel-link">' + i.داخلی + '</a>' 
+             : i.داخلی;
+           
+           const phoneLink = i.شماره !== '---' 
+             ? '<a href="tel:' + String(i.شماره).replace(/\s+/g, '') + '" class="tel-link">' + i.شماره + '</a>' 
+             : i.شماره;
+             
+           rowsHtml += '<tr><td>' + i.نام + '</td><td>' + extLink + '</td><td class="phone">' + phoneLink + '</td></tr>';
+        });
+        card.innerHTML = '<header class="dept-header"><h2 class="dept-title">' + dept + '</h2></header><table><thead><tr><th>نام</th><th>داخلی</th><th>شماره مستقیم</th></tr></thead><tbody>' + rowsHtml + '</tbody></table>';
+        sectionsEl.appendChild(card);
+      });
     }
 
     searchInput.addEventListener("input", render);
-
-    deptFilter.addEventListener("focus", () => {
-      buildDeptList(deptFilter.value);
-      openDropdown();
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest("#deptDropdown")) deptDropdown.classList.remove("open");
     });
-
     deptFilter.addEventListener("click", () => {
-      buildDeptList(deptFilter.value);
-      openDropdown();
+        const items = ["همه بخش‌ها", ...depts];
+        deptList.innerHTML = items.map(i => '<div class="dropdown-item">' + i + '</div>').join("");
+        deptDropdown.classList.add("open");
     });
-
-    deptFilter.addEventListener("input", () => {
-      buildDeptList(deptFilter.value);
-      openDropdown();
+    deptList.addEventListener("click", (e) => {
+        if (!e.target.classList.contains("dropdown-item")) return;
+        deptFilter.value = e.target.textContent === "همه بخش‌ها" ? "" : e.target.textContent;
+        deptDropdown.classList.remove("open");
+        render();
     });
-
-    deptList.addEventListener("click", (event) => {
-      const item = event.target.closest(".dropdown-item");
-      if (!item) return;
-      setDeptValue(item.dataset.value);
-      buildDeptList(deptFilter.value);
-      closeDropdown();
+    document.getElementById("clearBtn").addEventListener("click", () => {
+        searchInput.value = ""; deptFilter.value = ""; render();
     });
-
-    document.addEventListener("click", (event) => {
-      if (!deptDropdown.contains(event.target)) {
-        closeDropdown();
-      }
-    });
-
-    clearBtn.addEventListener("click", () => {
-      searchInput.value = "";
-      deptFilter.value = "";
-      buildDeptList("");
-      render();
-      closeDropdown();
-    });
-
-    buildDeptList("");
     render();
   </script>
 </body>
