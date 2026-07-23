@@ -29,6 +29,7 @@
     .dropdown.open .dropdown-list { display: block; }
     .dropdown-item { padding: 11px 14px; text-align: center; cursor: pointer; border-bottom: 1px solid #edf1f5; font-size: 14px; }
     .dropdown-item:hover { background: #f4f7fa; color: var(--navy); }
+    .dropdown-empty { padding: 11px 14px; text-align: center; color: #888; font-style: italic; }
     .summary { display: flex; justify-content: center; gap: 15px; padding: 15px; background: #f9f9f9; flex-wrap: wrap; }
     .summary-chip { background: #fff; padding: 8px 16px; border-radius: 999px; border: 1px solid #ddd; font-size: 13px; font-weight: 600; }
     .sections { padding: 20px; display: grid; gap: 20px; }
@@ -157,69 +158,78 @@
 
     const searchInput = document.getElementById("searchInput");
     const deptFilter = document.getElementById("deptFilter");
+    const deptDropdown = document.getElementById("deptDropdown");
     const deptList = document.getElementById("deptList");
     const sectionsEl = document.getElementById("sections");
+    const emptyStateEl = document.getElementById("emptyState");
     const resultCountEl = document.getElementById("resultCount");
     const visibleDeptCountEl = document.getElementById("visibleDeptCount");
-    const emptyStateEl = document.getElementById("emptyState");
+    const clearBtn = document.getElementById("clearBtn");
 
-    const depts = [...new Set(rawData.map(i => i.بخش))].sort();
+    const depts = [...new Set(rawData.map((item) => item.بخش))].sort();
+
+    function normalize(value) { return value.trim().toLowerCase(); }
+
+    function getExactDeptMatch(value) {
+      const query = normalize(value);
+      const matchedDept = depts.find(dept => normalize(dept) === query);
+      return matchedDept || "";
+    }
+
+    function buildDeptList(filterText = "") {
+      const query = normalize(filterText);
+      const filteredDepts = depts.filter(dept => normalize(dept).includes(query));
+      let itemsHtml = '';
+      if (filteredDepts.length === 0 && query !== "") {
+        itemsHtml = '<div class="dropdown-empty">بخشی یافت نشد</div>';
+      } else {
+        const displayDepts = ["همه بخش‌ها", ...filteredDepts];
+        itemsHtml = displayDepts.map(item => {
+          const value = item === "همه بخش‌ها" ? "" : item;
+          return `<div class="dropdown-item" data-value="${value}">${item}</div>`;
+        }).join("");
+      }
+      deptList.innerHTML = itemsHtml;
+    }
+
+    function openDropdown() { deptDropdown.classList.add("open"); }
+    function closeDropdown() { deptDropdown.classList.remove("open"); }
+    function setDeptValue(value) { deptFilter.value = value; render(); closeDropdown(); }
 
     function render() {
-      const q = searchInput.value.trim().toLowerCase();
-      const exactDept = deptFilter.value.trim();
-      const filtered = rawData.filter(i => (exactDept === "" || i.بخش === exactDept) && (i.نام.toLowerCase().includes(q) || i.داخلی.includes(q) || i.شماره.includes(q)));
-      resultCountEl.textContent = filtered.length;
-      emptyStateEl.style.display = filtered.length ? "none" : "block";
-      
-      const grouped = depts.reduce((acc, dept) => {
-        const items = filtered.filter(i => i.بخش === dept);
-        if (items.length) acc[dept] = items;
-        return acc;
-      }, {});
-      
-      visibleDeptCountEl.textContent = Object.keys(grouped).length;
-      sectionsEl.innerHTML = "";
-      
-      Object.keys(grouped).forEach(dept => {
-        const card = document.createElement("article");
-        card.className = "dept-card";
-        let rowsHtml = "";
-        grouped[dept].forEach(i => {
-           // لینک برای شماره اصلی شرکت + داخلی
-           const extLink = i.داخلی !== '---' 
-             ? '<a href="tel:+985191003113,' + i.داخلی + '" class="tel-link">' + i.داخلی + '</a>' 
-             : i.داخلی;
-           
-           const phoneLink = i.شماره !== '---' 
-             ? '<a href="tel:' + String(i.شماره).replace(/\s+/g, '') + '" class="tel-link">' + i.شماره + '</a>' 
-             : i.شماره;
-             
-           rowsHtml += '<tr><td>' + i.نام + '</td><td>' + extLink + '</td><td class="phone">' + phoneLink + '</td></tr>';
-        });
-        card.innerHTML = '<header class="dept-header"><h2 class="dept-title">' + dept + '</h2></header><table><thead><tr><th>نام</th><th>داخلی</th><th>شماره مستقیم</th></tr></thead><tbody>' + rowsHtml + '</tbody></table>';
-        sectionsEl.appendChild(card);
+      const query = normalize(searchInput.value);
+      const exactDept = getExactDeptMatch(deptFilter.value);
+      let filteredData = rawData.filter((i) => {
+        const matchesSearch = query === "" || normalize(i.نام).includes(query) || normalize(i.داخلی).includes(query) || normalize(i.شماره).includes(query);
+        const matchesDept = exactDept === "" || normalize(i.بخش) === normalize(exactDept);
+        return matchesSearch && matchesDept;
       });
+      const groupedByDept = filteredData.reduce((acc, item) => { (acc[item.بخش] = acc[item.بخش] || []).push(item); return acc; }, {});
+      const sortedDepts = Object.keys(groupedByDept).sort();
+      sectionsEl.innerHTML = "";
+      if (filteredData.length === 0) { emptyStateEl.style.display = "block"; } else {
+        emptyStateEl.style.display = "none";
+        sortedDepts.forEach((deptName) => {
+          const deptData = groupedByDept[deptName];
+          const card = document.createElement("article");
+          card.classList.add("dept-card");
+let tableRowsHtml = deptData.map((i) => `<tr><td>${i.نام}</td><td>${i.داخلی === "---" ? "---" : `<a href="tel:+985191003113,${i.داخلی}" class="tel-link"><span class="phone">${i.داخلی}</span></a>`}</td><td>${i.شماره === "---" ? "---" : `<a href="tel:${String(i.شماره).replace(/\s+/g, '')}" class="tel-link"><span class="phone">${i.شماره}</span></a>`}</td></tr>`).join("");
+          card.innerHTML = `<div class="dept-header"><h2 class="dept-title">${deptName}</h2></div><table><thead><tr><th>نام</th><th>داخلی</th><th>شماره مستقیم</th></tr></thead><tbody>${tableRowsHtml}</tbody></table>`;
+          sectionsEl.appendChild(card);
+        });
+      }
+      resultCountEl.textContent = filteredData.length;
+      visibleDeptCountEl.textContent = sortedDepts.length;
     }
 
     searchInput.addEventListener("input", render);
-    document.addEventListener("click", (e) => {
-        if (!e.target.closest("#deptDropdown")) deptDropdown.classList.remove("open");
-    });
-    deptFilter.addEventListener("click", () => {
-        const items = ["همه بخش‌ها", ...depts];
-        deptList.innerHTML = items.map(i => '<div class="dropdown-item">' + i + '</div>').join("");
-        deptDropdown.classList.add("open");
-    });
-    deptList.addEventListener("click", (e) => {
-        if (!e.target.classList.contains("dropdown-item")) return;
-        deptFilter.value = e.target.textContent === "همه بخش‌ها" ? "" : e.target.textContent;
-        deptDropdown.classList.remove("open");
-        render();
-    });
-    document.getElementById("clearBtn").addEventListener("click", () => {
-        searchInput.value = ""; deptFilter.value = ""; render();
-    });
+    deptFilter.addEventListener("focus", () => { buildDeptList(deptFilter.value); openDropdown(); });
+    deptFilter.addEventListener("input", () => { buildDeptList(deptFilter.value); openDropdown(); });
+    deptFilter.addEventListener("click", (e) => { if (!deptDropdown.classList.contains("open")) { buildDeptList(deptFilter.value); openDropdown(); } e.stopPropagation(); });
+    deptList.addEventListener("click", (event) => { const item = event.target.closest(".dropdown-item"); if (item) setDeptValue(item.dataset.value); });
+    document.addEventListener("click", (event) => { if (!deptDropdown.contains(event.target)) closeDropdown(); });
+    clearBtn.addEventListener("click", () => { searchInput.value = ""; deptFilter.value = ""; buildDeptList(""); render(); closeDropdown(); });
+    buildDeptList("");
     render();
   </script>
 </body>
